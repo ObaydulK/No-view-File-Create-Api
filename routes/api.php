@@ -13,17 +13,20 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get("/demo", [DemoController::class, "demo"]);
-Route::get('/redemo', [ReDemoController::class, 'redemo']);
 
+Route::get('/redemo', [ReDemoController::class, 'redemo']);
 Route::get('/moredemo', [ReDemoController::class,'moredemo']);
 
-Route::get('/userdata', [UserController::class,'userdata']);
 Route::get('/reuserdata', [ReUserController::class,'reuserdata']);
+Route::post('/stores', [ReUserController::class,'stores']);
+
+
+Route::get('/userdata', [UserController::class,'userdata']);
 Route::get('/singledata/{User}', [UserController::class,'singledata']);
+Route::post('/store', [UserController::class,'store']);
 
 
 Route::get('/demos', [MainController::class, 'demos']);
 Route::get('/mainusers', [MainController::class,'mainusers']);
-
-
 Route::get('/show/{user}', [MainController::class,'show']);
+

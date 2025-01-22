@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Validator;
 
 class UserController extends Controller
 {
@@ -25,8 +26,7 @@ class UserController extends Controller
                 'message'=> 'data found',
                 'data' => $User,
                 'status'=> true,
-            ]);
-            # code...
+            ]); 
         } else {
              return response()->json([
                 'message' => 'Data no found',
@@ -36,5 +36,34 @@ class UserController extends Controller
         }
         
     }
+
+    public function store(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email'=> 'required|email',
+            'password'=> 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'message' => 'fix error',
+                'errors' => $validator->errors(),
+                'status' => false
+            ],200);
+        }
+
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = ($request->password);
+        $user->save();
+
+        return response()->json([
+            'message'=> 'user added successfully',
+            'data'=> $user,
+            'status'=> true
+        ], 200);
+
+    }
+
 
 }
