@@ -19,11 +19,13 @@ Route::get('/moredemo', [ReDemoController::class,'moredemo']);
 
 Route::get('/reuserdata', [ReUserController::class,'reuserdata']);
 Route::post('/stores', [ReUserController::class,'stores']);
+Route::put('/updates/{user}', [ReUserController::class,'update']);
 
 
 Route::get('/userdata', [UserController::class,'userdata']);
 Route::get('/singledata/{User}', [UserController::class,'singledata']);
 Route::post('/store', [UserController::class,'store']);
+Route::put('/update/{user}', [UserController::class,'update']);
 
 
 Route::get('/demos', [MainController::class, 'demos']);

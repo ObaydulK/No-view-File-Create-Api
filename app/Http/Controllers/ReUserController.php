@@ -44,4 +44,44 @@ class ReUserController extends Controller
         ]);
     }
 
+
+    public function update(Request $request, $id){
+        $user = User::find($id);
+
+        if($user == null){
+            return response()->json([
+                "message"=> "Data is not found", 
+                "status"=> false,
+            ], 200);
+        }
+
+        $validator = Validator::make($request->all(),[
+            "name"=> "required",
+            "email"=> "required|email", 
+
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "message" => "Pleace fix errors",
+                "errors"=> $validator->errors(),
+                "status"=> false,
+            ], 200);
+        }
+
+        
+        $user->name = $request->name;
+        $user->email = $request->email; 
+        $user->save();
+
+        return response()->json([
+            "message"=> "Update success fully",
+            "data"=> $user,
+            "status"=> true
+        ], 200);
+
+
+
+    }
+
 }
